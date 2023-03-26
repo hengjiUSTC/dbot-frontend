@@ -69,10 +69,10 @@ export default function Footer() {
             <Logo sx={{ mx: { xs: 'auto', md: 'inherit' } }} />
 
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              ACECO: AI powered conent creation
+              ACECO: AI powered UGC
             </Typography>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              Next generation digital marketing
+              Next generation digital character creation
             </Typography>
           </Grid>
 
