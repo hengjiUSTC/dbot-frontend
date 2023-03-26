@@ -1,0 +1,82 @@
+html, body, #root, .App, main {
+  height: 100%;
+}
+.App {
+  // display: flex;
+  // flex-direction: column;
+  height: 100%;
+}
+/* Add background color to the body */
+body {
+  // background-color: rgba(68, 70, 84, 1.0);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+}
+
+/* Remove border color from the response list container */
+.response-list {
+  border: none;
+  overflow-y: auto;
+  flex: 1;
+  height: 80%;
+  // margin: 10px 200px;
+}
+
+.chatgpt-response {
+  background-color: rgba(68, 70, 84, 1);
+}
+
+.my-question {
+  background-color: rgba(52, 53, 65, 1);
+}
+/* Change background color of the input container */
+#input-container {
+  position: absolute;
+  top: unset;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+
+
+/* Remove background color and add an SVG background for the submit button */
+#submit-button {
+  background: transparent url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='white' d='M2.01 21L23 12 2.01 3 2 10l15 2-15 2z'/></svg>") no-repeat center center;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#regenerate-button-container {
+  display: flex;
+  // flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#regenerate-response-button {
+  color: white;
+  border: none;
+  background: #10A37F;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
