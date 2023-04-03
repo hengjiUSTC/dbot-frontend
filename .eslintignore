@@ -1,0 +1,4 @@
+// .eslintignore
+build/*
+public/*
+src/glsl.d.ts

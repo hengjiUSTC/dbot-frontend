@@ -1,0 +1,130 @@
+/* =24px */
+.container__item {
+  margin: 0 auto 40px;
+}
+
+.small_font {
+  font-size: 62.5%;
+}
+
+.content__wrapper {
+  max-width: 1200px;
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+// .ellipses-container .greeting {
+//   // text-transform: uppercase;
+//   font-size: 2.2rem;
+//   font-weight: 400;
+//   opacity: 0.5;
+// }
+// .ellipses-container .greeting:after {
+//   content: "";
+//   width: 0.3rem;
+//   height: 0.3rem;
+//   border-radius: 50%;
+//   display: inline-block;
+//   background-color: #ffffff;
+//   position: relative;
+//   top: -0.65rem;
+//   left: -5.05rem;
+// }
+
+.ellipses {
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  border-style: solid;
+}
+
+.ellipses__outer--thin {
+  width: 90%;
+  height: 90%;
+  left: 5%;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.319);
+  -webkit-animation: ellipsesOrbit 15s ease-in-out infinite;
+          animation: ellipsesOrbit 15s ease-in-out infinite;
+}
+// .ellipses__outer--thin:after {
+//   content: "";
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   opacity: 0.15;
+// }
+
+.ellipses__outer--thick {
+  width: 90%;
+  height: 90%;
+  left: 5%;
+  border-color: #9032d2 transparent;
+  border-width: 2px;
+  transform: rotate(-45deg);
+  -webkit-animation: ellipsesRotate 15s ease-in-out infinite;
+          animation: ellipsesRotate 15s ease-in-out infinite;
+}
+
+.ellipses__orbit {
+  width: 8%;
+  height: 8%;
+  border-width: 2px;
+  border-color: #9032d2;
+  top: 15%;
+  right: 6.8%;
+}
+.ellipses__orbit:before {
+  content: "";
+  width: 35%;
+  height: 35%;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #9032d2;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@-webkit-keyframes ellipsesRotate {
+  0% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(-405deg);
+  }
+}
+
+@keyframes ellipsesRotate {
+  0% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(-405deg);
+  }
+}
+@-webkit-keyframes ellipsesOrbit {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ellipsesOrbit {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
