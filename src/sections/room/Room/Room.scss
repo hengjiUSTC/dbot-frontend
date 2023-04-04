@@ -1,19 +1,13 @@
-html, body, #root, .App, main {
+.room {
   height: 100%;
 }
-.App {
-  // display: flex;
-  // flex-direction: column;
-  height: 100%;
-}
-/* Add background color to the body */
-body {
-  // background-color: rgba(68, 70, 84, 1.0);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0;
-}
+// body {
+//   // background-color: rgba(68, 70, 84, 1.0);
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   margin: 0;
+// }
 
 /* Remove border color from the response list container */
 .response-list {

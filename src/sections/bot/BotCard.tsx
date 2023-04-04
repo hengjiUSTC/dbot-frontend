@@ -18,9 +18,6 @@ type Props = {
 export default function BotCard({ bot }: Props) {
   const navigate = useNavigate();
   const { _id, name, image, description } = bot;
-  console.log(_id);
-  const linkTo = '/';
-
   const handleGoRoom = () => {
     navigate(`/room/${_id}`);
   };

@@ -23,19 +23,13 @@ const customReviver = (key, value) => {
 };
 
 export default function HomePage() {
-  console.log('home page');
   const dispatch = useDispatch();
   const { bots, isLoading } = useSelector((state) => state.bots);
   useEffect(() => {
-    console.log('enter', bots.length, isLoading);
     if (bots.length === 0 && isLoading === false) {
       dispatch(getBots());
     }
-  }, []);
-
-  useEffect(() => {
-    console.log('enter', isLoading);
-  }, [isLoading]);
+  }, [bots.length, dispatch, isLoading]);
 
   return (
     <>

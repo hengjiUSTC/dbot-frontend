@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PromptInput from '../PromptInput/PromptInput';
-import './Room.scss';
 import { ResponseInterface } from '../PromptResponseList/response-interface';
 import PromptResponseList from '../PromptResponseList/PromptResponseList';
 import { Box, Divider, LinearProgress, Stack, Toolbar } from '@mui/material';
@@ -8,6 +7,7 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import { IBot } from '@/types/bot';
 import ChatBotInfo from './ChatBotInfo';
 import { instance } from '@/network/axiosInstance';
+import './Room.scss';
 
 interface GptMessages {
   role: string;
@@ -128,7 +128,7 @@ const Room = ({ bot }: { bot: IBot }) => {
   };
 
   return (
-    <div className="App">
+    <div className="room">
       <Stack
         direction="row"
         flexGrow={1}

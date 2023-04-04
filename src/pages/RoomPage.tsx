@@ -6,20 +6,22 @@ import { useEffect } from 'react';
 import Room from '@/sections/room/Room/Room';
 import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
 import { useDispatch, useSelector } from '@/redux/store';
-import { getBotInfo } from '@/redux/slices/chat';
+import { clearBot, getBotInfo } from '@/redux/slices/chat';
 
 export default function RoomPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { bot, isLoading } = useSelector((state) => state.chat);
+  const { bot } = useSelector((state) => state.chat);
 
-  console.log(id, isLoading);
   useEffect(() => {
-    console.log('room effect');
     if (id) {
+      if (bot && bot._id !== id) {
+        dispatch(clearBot());
+      }
       dispatch(getBotInfo(id));
     }
-  }, [id]);
+  }, []);
+
   const loading = (
     <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
       <CircularProgress color="inherit" />

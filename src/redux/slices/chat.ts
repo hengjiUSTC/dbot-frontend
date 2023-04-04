@@ -31,17 +31,21 @@ const slice = createSlice({
       state.isLoading = false;
       state.bot = action.payload;
     },
+
+    // Clear
+    clearBot: () => initialState,
   },
 });
 
 // Reducer
 export default slice.reducer;
 
+// Actions
+export const { clearBot } = slice.actions;
 // ----------------------------------------------------------------------
 
 export function getBotInfo(id: string) {
   return async (dispatch: Dispatch) => {
-    console.log('get bot network');
     dispatch(slice.actions.startLoading());
     try {
       const response = await instance.get(`/bot/single/?id=${id}`);

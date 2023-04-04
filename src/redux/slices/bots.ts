@@ -41,7 +41,6 @@ export default slice.reducer;
 
 export function getBots() {
   return async (dispatch: Dispatch) => {
-    console.log('network');
     dispatch(slice.actions.startLoading());
     try {
       const response = await instance.get('/bot/all/');
