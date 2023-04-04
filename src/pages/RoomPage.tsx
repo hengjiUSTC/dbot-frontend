@@ -44,7 +44,7 @@ export default function RoomPage() {
           ]}
         />
       </Container>
-      <Container sx={{ height: '70vh', paddingBottom: 5 }}>
+      <Container sx={{ height: '75vh', paddingBottom: 5 }}>
         {bot ? <Room bot={bot} /> : loading}
       </Container>
     </>

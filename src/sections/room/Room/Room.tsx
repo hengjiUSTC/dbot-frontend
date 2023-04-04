@@ -51,9 +51,7 @@ const Room = ({ bot }: { bot: IBot }) => {
 
   const updateResponse = (updatedObject: ResponseInterface) => {
     setResponseList((prevResponses) => {
-      console.log('prevResponses: ', prevResponses, updatedObject);
       const updatedList = [...prevResponses, updatedObject];
-      console.log('update response', updatedList);
       return updatedList;
     });
   };
@@ -81,7 +79,6 @@ const Room = ({ bot }: { bot: IBot }) => {
         return r;
       });
       messages.push({ role: 'user', content: _prompt });
-      console.log(messages, JSON.stringify(messages));
 
       bodyFormData.set('messages', JSON.stringify(messages));
 
@@ -89,12 +86,10 @@ const Room = ({ bot }: { bot: IBot }) => {
       addResponse(true, _prompt);
       setGptMessageQueue((oldQueue) => {
         const updatedQueue = [...oldQueue, { role: 'user', content: _prompt }];
-        console.log('update setGptMessageQueue', updatedQueue);
         return updatedQueue;
       });
 
       const response = await instance.post('/bot/chat/', bodyFormData);
-      console.log(response);
       const reply = response.data.data.trim();
       updateResponse({
         id: response_id,
@@ -104,7 +99,6 @@ const Room = ({ bot }: { bot: IBot }) => {
 
       setGptMessageQueue((oldQueue) => {
         const updatedQueue = [...oldQueue, { role: 'assistant', content: reply }];
-        console.log('update setGptMessageQueue', updatedQueue);
         return updatedQueue;
       });
       setPromptToRetry(null);

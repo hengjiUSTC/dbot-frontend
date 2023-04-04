@@ -147,7 +147,6 @@ export default function GeneratePage() {
     }
     bodyFormData.set('image', photoUrl);
     instance.post('/bot/single/', bodyFormData).then((r) => {
-      console.log(r);
       setIsGenerating(false);
       setSnackBarState({
         open: true,
