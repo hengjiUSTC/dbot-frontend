@@ -272,7 +272,7 @@ export default function GeneratePage() {
               <Box display="flex" justifyContent="center" width="100%">
                 <Grid container alignItems="center" spacing={1} maxWidth="40rem">
                   <Grid item xs="auto">
-                    <Iconify width="36px" icon="mdi:number-three-circle" />
+                    <Iconify width="36px" icon="mdi:number-four-circle" />
                   </Grid>
                   <Grid item xs={10}>
                     <Typography variant="h3">模版输入</Typography>
@@ -297,7 +297,7 @@ export default function GeneratePage() {
               <Box display="flex" justifyContent="center" width="100%">
                 <Grid container alignItems="center" spacing={1} maxWidth="40rem">
                   <Grid item xs="auto">
-                    <Iconify width="36px" icon="mdi:number-four-circle" />
+                    <Iconify width="36px" icon="mdi:number-five-circle" />
                   </Grid>
                   <Grid item xs={10}>
                     <Typography variant="h3">选择或者上传应用照片</Typography>
