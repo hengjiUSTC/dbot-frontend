@@ -99,7 +99,6 @@ export default function GeneratePage() {
     if (isGenerating) {
       return;
     }
-    setIsGenerating(true);
     const bodyFormData = new FormData();
     if (name === '') {
       setSnackBarState({
@@ -146,6 +145,7 @@ export default function GeneratePage() {
       return;
     }
     bodyFormData.set('image', photoUrl);
+    setIsGenerating(true);
     instance.post('/bot/single/', bodyFormData).then((r) => {
       setIsGenerating(false);
       setSnackBarState({
