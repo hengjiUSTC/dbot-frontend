@@ -11,40 +11,21 @@ import {
   Snackbar,
   Alert,
   LinearProgress,
+  ButtonGroup,
 } from '@mui/material';
 import Footer from '@/layouts/main/Footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Iconify from '@/components/iconify';
-import { Uploader } from 'uploader';
-import { UploadDropzone } from 'react-uploader';
 import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
 import { instance } from '@/network/axiosInstance';
-import { UPLOADER_API } from '@/config-global';
 import { ImageSelect } from '@/sections/genereate/ImageSelect';
 import { useNavigate } from 'react-router-dom';
-
-const options = {
-  multi: false,
-  styles: {
-    colors: {
-      primary: '#377dff',
-    },
-  },
-  editor: {
-    images: {
-      crop: true,
-      cropRatio: 1 / 1,
-      cropShape: 'rect' as const,
-    },
-  },
-  mimeTypes: ['image/jpeg', 'image/png', 'image/jpg'],
-  container: 'div',
-};
+import ReactMarkdown from 'react-markdown';
+import hljs from 'highlight.js';
+import '@/sections/room/PromptResponseList/PromptResponseList.scss';
+import useResponsive from '@/hooks/useResponsive';
 
 // Configuration for the uploader
-const uploader = Uploader({
-  apiKey: UPLOADER_API,
-});
 
 interface SnackBarState {
   open: boolean;
@@ -55,7 +36,6 @@ interface SnackBarState {
 
 export default function GeneratePage() {
   const navigate = useNavigate();
-  const nums = 100;
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
@@ -67,25 +47,16 @@ export default function GeneratePage() {
     type: undefined,
   });
   const [isGenerating, setIsGenerating] = useState(false);
+  const [oneShotResponse, setOneShotResponse] = useState<string>('');
+  const upMd = useResponsive('up', 'md');
 
-  const UploadDropZone = () => (
-    <UploadDropzone
-      uploader={uploader}
-      options={options}
-      onUpdate={(files) => {
-        if (files.length === 0) {
-          console.log('No files selected.');
-        } else if (files.length === 1) {
-          console.log('Files uploaded:');
-          const file = files.map((f) => f.fileUrl);
-          setPhotoUrl(file[0]);
-        }
-      }}
-      // width="100%"
-      width="670px"
-      height="550px"
-    />
-  );
+  useEffect(() => {
+    hljs.highlightAll();
+  });
+
+  useEffect(() => {
+    hljs.highlightAll();
+  }, [oneShotResponse]);
 
   const handleClose = () => {
     setSnackBarState({
@@ -95,7 +66,49 @@ export default function GeneratePage() {
     });
   };
 
-  const onSubmit = async (event: React.MouseEvent<HTMLElement>) => {
+  const onTest = async () => {
+    if (isGenerating) {
+      return;
+    }
+    const bodyFormData = new FormData();
+    if (prompt === '') {
+      setSnackBarState({
+        open: true,
+        emessage: 'Plesae enter prompt',
+        type: 'error',
+      });
+      return;
+    }
+    bodyFormData.set('prompt', prompt);
+    if (example === '') {
+      setSnackBarState({
+        open: true,
+        emessage: 'Plesae enter example',
+        type: 'error',
+      });
+      return;
+    }
+    bodyFormData.set('example', example);
+
+    setIsGenerating(true);
+    instance
+      .post('/bot/generate_chat/', bodyFormData)
+      .then((r) => {
+        setOneShotResponse(r.data.data.trim());
+      })
+      .catch((e) => {
+        setSnackBarState({
+          open: true,
+          emessage: `Network error: ${e}`,
+          type: 'error',
+        });
+      })
+      .finally(() => {
+        setIsGenerating(false);
+      });
+  };
+
+  const onSubmit = async () => {
     if (isGenerating) {
       return;
     }
@@ -146,17 +159,22 @@ export default function GeneratePage() {
     }
     bodyFormData.set('image', photoUrl);
     setIsGenerating(true);
-    instance.post('/bot/single/', bodyFormData).then((r) => {
-      setIsGenerating(false);
-      setSnackBarState({
-        open: true,
-        emessage: 'Create success, redirect in 3s',
-        type: 'success',
+    instance
+      .post('/bot/single/', bodyFormData)
+      .then((r) => {
+        setIsGenerating(false);
+        setSnackBarState({
+          open: true,
+          emessage: 'Create success, redirect in 3s',
+          type: 'success',
+        });
+        setTimeout(() => {
+          navigate(`/room/${r.data.data}`);
+        }, 3000);
+      })
+      .finally(() => {
+        setIsGenerating(false);
       });
-      setTimeout(() => {
-        navigate(`/room/${r.data.data}`);
-      }, 3000);
-    });
   };
 
   return (
@@ -313,19 +331,65 @@ export default function GeneratePage() {
                 </Box>
               )}
               <Box display="flex" justifyContent="center" width="100%">
-                <Button
+                <ButtonGroup
                   variant="contained"
-                  onClick={onSubmit}
                   sx={{
                     maxWidth: '40rem',
                     width: '100%',
-                    height: 50,
-                    fontSize: 20,
-                    fontWeight: 30,
                   }}
+                  orientation={upMd ? 'horizontal' : 'vertical'}
                 >
-                  生成应用
-                </Button>
+                  <Button
+                    onClick={onTest}
+                    fullWidth
+                    sx={{
+                      height: 50,
+                      fontSize: 20,
+                      fontWeight: 30,
+                    }}
+                  >
+                    测试应用(可多次)
+                  </Button>
+                  <Button
+                    onClick={onSubmit}
+                    fullWidth
+                    sx={{
+                      height: 50,
+                      fontSize: 20,
+                      fontWeight: 30,
+                    }}
+                    disabled={oneShotResponse === ''}
+                  >
+                    {oneShotResponse === '' ? '请先测试' : '生成应用'}
+                  </Button>
+                </ButtonGroup>
+              </Box>
+            </Grid>
+            <Grid item width="100%">
+              <Box display="flex" justifyContent="center" width="100%">
+                <Grid container alignItems="center" spacing={1} maxWidth="40rem">
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{ border: (theme) => `solid 1px ${theme.palette.divider}`, minHeight: 50 }}
+                  >
+                    <Box>
+                      <div className={'response-container chatgpt-response'}>
+                        <div className={'prompt-content'} style={{ width: '100%' }}>
+                          <ReactMarkdown
+                            components={{
+                              code({ className, children }) {
+                                return <code className={className}>{children}</code>;
+                              },
+                            }}
+                          >
+                            {oneShotResponse}
+                          </ReactMarkdown>
+                        </div>
+                      </div>
+                    </Box>
+                  </Grid>
+                </Grid>
               </Box>
             </Grid>
           </Grid>
