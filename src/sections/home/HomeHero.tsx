@@ -9,6 +9,7 @@ import { textGradient, bgGradient } from '../../utils/cssStyles';
 import { baseUrl } from '@/main';
 import path from 'node:path';
 import { NHomeHero } from './NHomeHero';
+import useResponsive from '@/hooks/useResponsive';
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
@@ -100,6 +101,7 @@ export default function HomeHero() {
 // ----------------------------------------------------------------------
 
 function Description() {
+  const upMd = useResponsive('up', 'md');
   const title = (
     <StyledGradientText
       animate={{ backgroundPosition: '200% center' }}
@@ -116,6 +118,54 @@ function Description() {
   return (
     <StyledDescription>
       <NHomeHero name={title}></NHomeHero>
+      <div
+        style={{
+          display: 'inline-block',
+          transform: 'scaleX(-1)',
+          position: 'absolute',
+          top: upMd ? '30vh' : '35vh',
+          left: upMd ? '33vh' : '2vh',
+        }}
+      >
+        <div
+          style={{
+            transformOrigin: 'center center',
+            width: '33vh',
+            height: '16vh',
+            zIndex: '-1',
+            filter: 'blur(56px)',
+            opacity: '.69',
+            borderRadius: '20px',
+            transform: 'skewY(8deg) translateY(-10%)',
+            backgroundImage:
+              'linear-gradient(rgb(82, 57, 208), rgb(123, 50, 194), rgb(125, 10, 201), rgb(166, 110, 188), rgb(123, 83, 178), rgb(0, 162, 234), rgb(0, 181, 236), rgb(20 152 226), rgb(16 70 217))',
+          }}
+        />
+      </div>
+      <div
+        style={{
+          display: 'inline-block',
+          transform: 'scaleX(-1)',
+          position: 'absolute',
+          top: upMd ? '60vh' : '15vh',
+          right: '25vh',
+        }}
+      >
+        <div
+          style={{
+            transformOrigin: 'center center',
+            width: '33vh',
+            height: '16vh',
+            zIndex: '-1',
+            filter: 'blur(56px)',
+            opacity: '.69',
+            borderRadius: '20px',
+            transform: 'skewY(-15deg) translateY(-10%)',
+            backgroundImage:
+              'linear-gradient(to right top, rgb(108, 34, 189), rgb(139, 37, 187), rgb(165, 43, 185), rgb(188, 52, 183), rgb(208, 64, 181), rgb(84 77 188), rgb(28 41 180), rgb(24 94 229))',
+          }}
+        />
+      </div>
     </StyledDescription>
   );
 }
