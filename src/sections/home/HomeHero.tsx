@@ -124,7 +124,7 @@ function Description() {
           transform: 'scaleX(-1)',
           position: 'absolute',
           top: upMd ? '30vh' : '35vh',
-          left: upMd ? '33vh' : '2vh',
+          left: upMd ? '33vh' : '5vh',
         }}
       >
         <div
@@ -148,7 +148,7 @@ function Description() {
           transform: 'scaleX(-1)',
           position: 'absolute',
           top: upMd ? '60vh' : '15vh',
-          right: '25vh',
+          right: upMd ? '25vh' : '7vh',
         }}
       >
         <div
